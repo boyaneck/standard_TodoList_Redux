@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+## 😢 필수 요구사항
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- (1) Redux 라이브러리 세팅
+    - [1] src > redux > modules > todos.js(리듀서)
+        - initialState를 사용하여 리듀서 구성
+               
+        - 총 3개의 action type을 생성
+            - ADD_TODO(추가)
+            - DELETE_TODO(삭제)
+            - SWITCH_TODO(완료 / 취소)
+    - [2] src > redux > config > configStore.js
+        - combineReducers 이용하여 모든 리듀서 합치기(우리의 경우 todos밖에 없음)
+        - createStore를 이용하여 store 생성 후 export(내보내기)
+    - [3] src > index.js
+        - react-redux에서 제공하는 Provider를 이용하여 [2]에서 생성한 store를 프로젝트에 주입
+- (2) React router dom 라이브러리
+    - [1] src > shared > Router.jsx
+        - BrowserRouter, Routes, Route를 이용하여 페이지 세팅
+            - 홈
+                - path : “/”
+                - component(element) : src > pages > Home.jsx
+            - 상세정보
+                - path : “/:id”
+                - component(element) : src > pages > Detail.jsx
+    - [2] App.jsx
+        - [1]에서 생성한 Router를 import하여 직접 호출(App.jsx의 자식컴포넌트로 사용)
+- (3) Styled-components 라이브러리
+    - `npm i styled-components` 또는 `yarn add styled-components` 명령어 이용하여 패키지 설치
+    - css 사용해야 하면 inline 방식이 아닌 styled components 방식으로 컴포넌트 디자인
+- (4) 메인페이지, 상세페이지
+    - 메인페이지
+        - src > pages > Home.jsx
+        - 요구사항
+            - 제목, 내용 입력 후 추가하기 버튼 누르면 todolist item 하나 추가
+            - TodoList
+                - redux store에서 데이터 가져오기(useSelector)
+                - 상세페이지로 가기 버튼 : useNavigate 이용
+                - todo 제목
+                - todo 내용
+                - 완료버튼 : 선택 시, DoneList로 이동
+                - 삭제버튼 : 해당 아이템 제거
+            - DoneList → TodoList에 반대(완료버튼은 취소버튼으로)
+    - 상세페이지
+        - src > pages > Detail.jsx
+        - 요구사항
+            - redux store에서 데이터 가져오기(useSelector 및 useLocation 이용하여 선택한 요소 가져오기)
+            - 제목, 내용, 완료여부 출력
+            - 이전화면으로 버튼 : useNavigate 이용
+            - 삭제 버튼 : 해당 아이템 제거 후 Main.jsx로 이동
