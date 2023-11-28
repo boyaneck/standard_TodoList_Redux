@@ -1,8 +1,11 @@
-# 2회차 오류 
+# 2회차 
 
-- 휴먼에러 => payload를 palyoad 라고 타이핑해서 시간 많이뺏김
--왜 프로젝트 보다 이게더 햇갈리지...
-  
+- 이전 코드 지우고 처음붜 다시 구조잡기
+- redux/config -> configstore
+- redux/modules -> reducer
+- pages -> home, detail  ->navigator 이용해서 detail 페이지로 parameter 전달
+
+### 결론:리덕스 파일 구조나 actionCreator,reducer,payload 등 어떻게 사용해야 할지는 다 이해가는데, return 문에서 로직짜는게 햇갈렸다;;;
 
 
 
