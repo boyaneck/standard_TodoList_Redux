@@ -50,8 +50,9 @@ const todos = (state = initialState, action) => {
 
     case SWITCH_TODO:
       console.log(action.payload);
-      return state.filter((state) => state.id === action.payload.id);
-
+      return;
+    //fitler가 햇갈렸어요 ..후 ..
+    //그래서 cancel도 안됐음 ;;;
     case CANCEL_TODO:
       return;
     default:
